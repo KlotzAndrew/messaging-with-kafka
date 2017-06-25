@@ -9,7 +9,7 @@ kafka = Kafka.new(
 
   # Set an optional client id in order to identify the client to Kafka:
   client_id: 'my-application',
-  logger: logger
+  # logger: logger
 )
 
 kafka.deliver_message('Hello, World!', topic: 'greetings')

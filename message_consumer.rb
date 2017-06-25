@@ -9,7 +9,7 @@ kafka = Kafka.new(
 
   # Set an optional client id in order to identify the client to Kafka:
   client_id: 'my-application',
-  logger: logger
+  # logger: logger
 )
 # partitions = kafka.partitions_for('events')
 
