@@ -1,6 +1,10 @@
 require 'kafka'
 
-logger = Logger.new(STDOUT)
+# logger = Logger.new(STDOUT)
+
+partition_value = ARGV[0] || '0'
+topic = 'greetings'
+msg = 'Hello, World!'
 
 kafka = Kafka.new(
   # At least one of these nodes must be available:
@@ -12,9 +16,13 @@ kafka = Kafka.new(
   # logger: logger
 )
 
-kafka.deliver_message('Hello, World!', topic: 'greetings')
+partitions = kafka.partitions_for(topic)
+
+partition = partition_value.to_i % partitions
+
+kafka.deliver_message(msg, topic: topic, partition: partition)
 
 producer = kafka.producer(required_acks: :all)
-producer.produce('Async Hello!', topic: 'greetings')
+producer.produce('Async Hello!', topic: topic, partition: partition)
 producer.deliver_messages
 producer.shutdown

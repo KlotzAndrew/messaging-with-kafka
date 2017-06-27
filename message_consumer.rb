@@ -1,6 +1,6 @@
 require 'kafka'
 
-logger = Logger.new(STDOUT)
+# logger = Logger.new(STDOUT)
 
 kafka = Kafka.new(
   # At least one of these nodes must be available:
@@ -11,7 +11,7 @@ kafka = Kafka.new(
   client_id: 'my-application',
   # logger: logger
 )
-# partitions = kafka.partitions_for('events')
+# partitions = kafka.partitions_for('greetings')
 
 kafka.each_message(topic: 'greetings') do |message|
   puts "Received: #{message.offset}, #{message.key}, #{message.value}"
